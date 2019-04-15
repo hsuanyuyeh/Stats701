@@ -1,0 +1,472 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Stats 701-Homework2 Winter 2018\n",
+    "## Hsuan-Yu Yeh \n",
+    "### hsuanyu@umich.edu\n",
+    "I didn't discuss with anyone for this homework. For problem1, I spent about 10 minutes to read the question and write down the implementation. For problem2, I just went through it quickly. I spent about 20 munites on implementing the second question. It's interesting. For problem3, I just went through the first one quickly. For the second one, I sepnt about 20 minutes to figure out the implementation. For problem4, I spent about 20 minutes for each. \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Problem 1: Functions with Strings\n",
+    "Determine whether the input string is 'palindrome', 'abecedarian' and count the number of vowels."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q1-1\n",
+    "def is_palindrome(pal):\n",
+    "    pal = pal.lower()\n",
+    "    pal = ''.join(pal.split())\n",
+    "    if pal[::-1] == pal[::1]:\n",
+    "        return True\n",
+    "    else:\n",
+    "        return False\n",
+    "\n",
+    "pal = 'TACO cat'\n",
+    "is_palindrome(pal)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q1-2\n",
+    "def is_abecedarian(abe):\n",
+    "    abe = abe.lower()\n",
+    "    abe_o = ''.join(abe.split())\n",
+    "    abe_s = ''.join(sorted(''.join(abe.split())))\n",
+    "    if abe_o == abe_s:\n",
+    "        return True\n",
+    "    else:\n",
+    "        return False\n",
+    "x = 'acd efgh xyz'\n",
+    "is_abecedarian(x)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "4"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q1-3\n",
+    "def count_vowels(vow):\n",
+    "    count = 0\n",
+    "    l = list(range(0,len(vow)))\n",
+    "    vowel = ['a','e','i','o','u']\n",
+    "    for i in l:\n",
+    "        for v in vowel:\n",
+    "            if vow[i] == v:\n",
+    "                count = count + 1\n",
+    "    return(count)\n",
+    "vow = 'a b ou de'\n",
+    "count_vowels(vow)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Problem 2: Functions with Lists \n",
+    "Reverse the list and find whether an integer is in the list through binary search."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[1, 2, 4, 3, 5]"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q2-1\n",
+    "def list_reverse(nums):\n",
+    "    if type(nums) != list:\n",
+    "        raise TypeError('The input should be a list!')\n",
+    "    else:\n",
+    "        return(nums[::-1])\n",
+    "    \n",
+    "nums = [5,3,4,2,1]\n",
+    "list_reverse(nums)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q2-2\n",
+    "def easysort(t):\n",
+    "    new = list()\n",
+    "    l = list(range(0,len(t)))\n",
+    "    for i in l:\n",
+    "        x = min(t)\n",
+    "        t.remove(x)\n",
+    "        new.append(x)\n",
+    "    return(new)\n",
+    "def binary_search(t, elmt):\n",
+    "    if len(t) == 0:\n",
+    "        return(False)\n",
+    "    t = easysort(t)\n",
+    "    minid = 0\n",
+    "    maxid = len(t)-1\n",
+    "    while(minid <= maxid):\n",
+    "        midid = int((minid+maxid)/2)\n",
+    "        if elmt == t[midid]:\n",
+    "            return(True)\n",
+    "        elif elmt > t[midid]:\n",
+    "            minid = midid + 1\n",
+    "        elif elmt < t[midid]:\n",
+    "            miaxid = midid - 1\n",
+    "    return(False)\n",
+    "        \n",
+    "binary_search([1,3,2,5,4],3)\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Problem 3: More Functions with Strings\n",
+    "Count the number of times each element and 'bigram' appeared in the input."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{' ': 2, '!': 2, '@': 1, 'a': 1, 'b': 4, 'c': 2}"
+      ]
+     },
+     "execution_count": 19,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q3-1\n",
+    "def char_hist(string):\n",
+    "    string = string.lower()\n",
+    "    dic = {}\n",
+    "    for i in string:\n",
+    "        if i in dic:\n",
+    "            dic[i] = dic[i] + 1\n",
+    "        else:\n",
+    "            dic[i] = 1\n",
+    "    return(dic)\n",
+    "\n",
+    "string = 'Abcbc b b!!@'\n",
+    "char_hist(string)\n",
+    "        "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{('a', 'a'): 1, ('a', 'g'): 2, ('g', 'a'): 3}"
+      ]
+     },
+     "execution_count": 22,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q3-2\n",
+    "def str2tup(string):\n",
+    "    string = string.lower()\n",
+    "    l = [None]*(len(string)-1)\n",
+    "    string_bi = tuple()\n",
+    "    l1 = list(range(0, len(string)-1))\n",
+    "    for i in l1:\n",
+    "        string_bi = (string[i], string[i+1])\n",
+    "        l[i] = string_bi\n",
+    "    return(l)\n",
+    "\n",
+    "def bigram_hist(string):\n",
+    "    l = str2tup(string)\n",
+    "    dic = {}\n",
+    "    for x in l:\n",
+    "        if x in dic:\n",
+    "            dic[x] = dic[x] + 1\n",
+    "        else:\n",
+    "            dic[x] = 1\n",
+    "    return(dic)\n",
+    "\n",
+    "string = 'mississippi'\n",
+    "string2 = 'gagagaa'\n",
+    "bigram_hist(string2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Problem 4: Tuples as Vectors\n",
+    "Check the format of the vector and matrix valid or not and conduct the inner product."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(1.3, 2, 3, 4, 5)"
+      ]
+     },
+     "execution_count": 33,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q4-1\n",
+    "def vec_scalar_mult(t,s):\n",
+    "    if (type(t) is tuple) != True:\n",
+    "        raise TypeError('The input should be tuple!')\n",
+    "    if all(isinstance(x, (int, float)) for x in t)!=True:\n",
+    "        raise TypeError('The entries should be int or float!')\n",
+    "    if isinstance(s,(int,float))!=True:\n",
+    "        raise TypeError('The number should be int or float!')\n",
+    "    tt = tuple(i*s for i in t)\n",
+    "    return(tt)\n",
+    "\n",
+    "t = (1.3,2,3,4,5)\n",
+    "s = 1\n",
+    "vec_scalar_mult(t,s)\n",
+    "    \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 47,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "70.52"
+      ]
+     },
+     "execution_count": 47,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q4-2\n",
+    "def vec_inner_product(x,y):\n",
+    "    if len(x) != len(y):\n",
+    "        raise ValueError('The input should meet the dimension!')\n",
+    "    if all(isinstance(i, (int,float)) for i in x)!=True or all(isinstance(j, (int,float)) for j in y)!=True:\n",
+    "        raise ValueError('The entries should be int or float!')\n",
+    "    if (isinstance(x, tuple))!=True or (isinstance(y, tuple)!=True):\n",
+    "        raise TypeError('The input should be tuple!')\n",
+    "    l = list(range(0,len(x)))\n",
+    "    s = 0\n",
+    "    for i in l:\n",
+    "        s = s + x[i]*y[i]\n",
+    "    return(s)\n",
+    "\n",
+    "x = (1.2,2,3,4,5)\n",
+    "y = (2.1,3,4,5,6)\n",
+    "vec_inner_product(x,y)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "execution_count": 52,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Q4-3\n",
+    "def check_all_elm(my_mx):\n",
+    "    re = list()\n",
+    "    for l in my_mx:\n",
+    "        re.append(all(isinstance(i, (int, float)) for i in l))\n",
+    "    return(all(re))\n",
+    "\n",
+    "def check_valid_mx(my_mx):\n",
+    "    if (all([type(x) is tuple for x in my_mx]) is False):\n",
+    "        return(False)\n",
+    "    l = [len(x) for x in my_mx] \n",
+    "    first = l[0]\n",
+    "    if (all(first == c for c in l) is False):\n",
+    "        return(False)\n",
+    "    r = check_all_elm(my_mx)\n",
+    "    return(r)\n",
+    "        \n",
+    "my_mx = ((1,2,3,4),(1,2,2,3),(1,2,3,'a'))\n",
+    "check_valid_mx(my_mx)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 69,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "TypeError",
+     "evalue": "The input should be tuple!",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-69-3cf809e93c6c>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     33\u001b[0m \u001b[0mmy_mx\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     34\u001b[0m \u001b[0mx\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0;36m1\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m6\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 35\u001b[0;31m \u001b[0mmx_vec_mult\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmy_mx\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m<ipython-input-69-3cf809e93c6c>\u001b[0m in \u001b[0;36mmx_vec_mult\u001b[0;34m(my_mx, x)\u001b[0m\n\u001b[1;32m     25\u001b[0m \u001b[0;32mdef\u001b[0m \u001b[0mmx_vec_mult\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmy_mx\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     26\u001b[0m     \u001b[0mcheck_valid_vec\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 27\u001b[0;31m     \u001b[0mcheck_valid_mx\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmy_mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     28\u001b[0m     \u001b[0mret\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mlist\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     29\u001b[0m     \u001b[0;32mfor\u001b[0m \u001b[0mv\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mmy_mx\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m<ipython-input-69-3cf809e93c6c>\u001b[0m in \u001b[0;36mcheck_valid_mx\u001b[0;34m(my_mx)\u001b[0m\n\u001b[1;32m      8\u001b[0m \u001b[0;32mdef\u001b[0m \u001b[0mcheck_valid_mx\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mmy_mx\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      9\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0mall\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mtype\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0mtuple\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mx\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mmy_mx\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mis\u001b[0m \u001b[0;32mFalse\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 10\u001b[0;31m         \u001b[0;32mraise\u001b[0m \u001b[0mTypeError\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'The input should be tuple!'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     11\u001b[0m     \u001b[0ml\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mlen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0mx\u001b[0m \u001b[0;32min\u001b[0m \u001b[0mmy_mx\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     12\u001b[0m     \u001b[0mfirst\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0ml\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mTypeError\u001b[0m: The input should be tuple!"
+     ]
+    }
+   ],
+   "source": [
+    "# Q4-4\n",
+    "def check_all_elm(my_mx):\n",
+    "    re = list()\n",
+    "    for l in my_mx:\n",
+    "        re.append(all(isinstance(i, (int, float)) for i in l))\n",
+    "    return(all(re))\n",
+    "\n",
+    "def check_valid_mx(my_mx):\n",
+    "    if (all([type(x) is tuple for x in my_mx]) is False):\n",
+    "        raise TypeError('The input should be tuple!')\n",
+    "    l = [len(x) for x in my_mx] \n",
+    "    first = l[0]\n",
+    "    if (all(first == c for c in l) is False):\n",
+    "        raise ValueError('The dimension should meet!')\n",
+    "    if (check_all_elm(my_mx) is False):\n",
+    "        raise ValueError('The entries should be int or float')\n",
+    "\n",
+    "def check_valid_vec(v):\n",
+    "    if type(v) != tuple:\n",
+    "        raise TypeError('The input should be tuple!')\n",
+    "    for a in v:\n",
+    "        if isinstance(a, (int,float))!=True:\n",
+    "            raise ValueError('The entries should be int or float!')\n",
+    "        \n",
+    "def mx_vec_mult(my_mx, x):\n",
+    "    check_valid_vec(x)\n",
+    "    check_valid_mx(my_mx)\n",
+    "    ret = list()\n",
+    "    for v in my_mx:\n",
+    "        ret.append(vec_inner_product(v, x))\n",
+    "    return(ret)\n",
+    "\n",
+    "my_mx = ([1,2,3],(1,2,3),(1,2,3))\n",
+    "x = (1,5,6)\n",
+    "mx_vec_mult(my_mx, x)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.4"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
